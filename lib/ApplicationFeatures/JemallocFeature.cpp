@@ -33,7 +33,9 @@ using namespace arangodb;
 using namespace arangodb::basics;
 using namespace arangodb::options;
 
+#if ARANGODB_MMAP_JEMALLOC
 char JemallocFeature::_staticPath[PATH_MAX + 1];
+#endif
 
 JemallocFeature::JemallocFeature(
     application_features::ApplicationServer* server)

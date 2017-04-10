@@ -76,7 +76,7 @@ inline typename std::enable_if<std::is_signed<T>::value, T>::type toNumber(
       m = 1024 * 1024 * 1024;
       value = value.substr(0, n - 1);
     } else if (suffix == "%") {
-      m = base;
+      m = static_cast<int64_t>(base);
       d = 100;
       value = value.substr(0, n - 1);
     }
@@ -127,7 +127,7 @@ inline typename std::enable_if<std::is_unsigned<T>::value, T>::type toNumber(
       m = 1024 * 1024 * 1024;
       value = value.substr(0, n - 1);
     } else if (suffix == "%") {
-      m = base;
+      m = static_cast<uint64_t>(base);
       d = 100;
       value = value.substr(0, n - 1);
     }
