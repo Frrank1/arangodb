@@ -43,7 +43,7 @@ JemallocFeature::JemallocFeature(
 }
 
 void JemallocFeature::collectOptions(std::shared_ptr<ProgramOptions> options) {
-#if ARANGODB_HAVE_JEMALLOC
+#if ARANGODB_MMAP_JEMALLOC
   options->addSection("vm", "Virtual memory");
 
   options->addOption("--vm.resident-limit", "resident limit in bytes",
@@ -55,7 +55,7 @@ void JemallocFeature::collectOptions(std::shared_ptr<ProgramOptions> options) {
 }
 
 void JemallocFeature::validateOptions(std::shared_ptr<ProgramOptions>) {
-#if ARANGODB_HAVE_JEMALLOC
+#if ARANGODB_MMAP_JEMALLOC
   static uint64_t MIN_LIMIT = 512 * 1024 * 1024;
 
   if (0 < _residentLimit && _residentLimit < MIN_LIMIT) {
@@ -79,7 +79,7 @@ void JemallocFeature::validateOptions(std::shared_ptr<ProgramOptions>) {
 #endif
 }
 
-#if ARANGODB_HAVE_JEMALLOC
+#if ARANGODB_MMAP_JEMALLOC
 extern "C" void adb_jemalloc_set_limit(size_t limit, char const* path);
 #endif
 
@@ -94,7 +94,7 @@ void JemallocFeature::setDefaultPath(std::string const& path) {
 }
 
 void JemallocFeature::start() {
-#if ARANGODB_HAVE_JEMALLOC
+#if ARANGODB_MMAP_JEMALLOC
   *_staticPath = '\0';
 
   if (0 < _residentLimit) {

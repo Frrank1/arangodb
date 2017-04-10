@@ -68,16 +68,6 @@ if (DEBUG_SYNC_REPLICATION)
 endif ()
 
 # ------------------------------------------------------------------------------
-# user options
-# ------------------------------------------------------------------------------
-
-option(
-  USE_JEMALLOC
-  "use jemalloc memory allocator"
-  ON
-)
-
-# ------------------------------------------------------------------------------
 # VERSION information
 # ------------------------------------------------------------------------------
 
@@ -244,9 +234,23 @@ elseif (APPLE)
   if (CMAKE_SYSTEM_NAME MATCHES ".*Darwin.*")
     set(DARWIN TRUE)
   elseif (CMAKE_SYSTEM_NAME MATCHES ".*MacOS.*")
-    set(MACOSX TRUE)
+    set(DARWIN TRUE)
   endif ()
   find_program(BREW brew)
+endif ()
+
+# ------------------------------------------------------------------------------
+# user options
+# ------------------------------------------------------------------------------
+
+if (WINDOWS)
+  SET(USE_JEMALLOC OFF)
+else ()
+  option(
+    USE_JEMALLOC
+    "use jemalloc memory allocator"
+    ON
+  )
 endif ()
 
 ################################################################################
@@ -542,6 +546,10 @@ if (USE_JEMALLOC)
   link_directories("${JEMALLOC_HOME}/lib")
 
   set(SYS_LIBS ${SYS_LIBS} jemalloc.a)
+
+  if (LINUX OR DARWIN)
+    add_definitions("-DARANGODB_MMAP_JEMALLOC=1")
+  endif ()
 endif ()
 
 # ------------------------------------------------------------------------------
