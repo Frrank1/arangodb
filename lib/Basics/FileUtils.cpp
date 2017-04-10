@@ -216,9 +216,9 @@ static void throwFileWriteError(int fd, std::string const& filename) {
 }
 
 void spit(std::string const& filename, char const* ptr, size_t len) {
-  int fd =
-      TRI_TRACKED_CREATE_FILE(filename.c_str(), O_WRONLY | O_CREAT | O_TRUNC | TRI_O_CLOEXEC,
-                 S_IRUSR | S_IWUSR | S_IRGRP);
+  int fd = TRI_TRACKED_CREATE_FILE(filename.c_str(),
+                                   O_WRONLY | O_CREAT | O_TRUNC | TRI_O_CLOEXEC,
+                                   S_IRUSR | S_IWUSR | S_IRGRP);
 
   if (fd == -1) {
     throwFileWriteError(fd, filename);
@@ -239,9 +239,9 @@ void spit(std::string const& filename, char const* ptr, size_t len) {
 }
 
 void spit(std::string const& filename, std::string const& content) {
-  int fd =
-      TRI_TRACKED_CREATE_FILE(filename.c_str(), O_WRONLY | O_CREAT | O_TRUNC | TRI_O_CLOEXEC,
-                 S_IRUSR | S_IWUSR | S_IRGRP);
+  int fd = TRI_TRACKED_CREATE_FILE(filename.c_str(),
+                                   O_WRONLY | O_CREAT | O_TRUNC | TRI_O_CLOEXEC,
+                                   S_IRUSR | S_IWUSR | S_IRGRP);
 
   if (fd == -1) {
     throwFileWriteError(fd, filename);
@@ -265,9 +265,9 @@ void spit(std::string const& filename, std::string const& content) {
 }
 
 void spit(std::string const& filename, StringBuffer const& content) {
-  int fd =
-      TRI_TRACKED_CREATE_FILE(filename.c_str(), O_WRONLY | O_CREAT | O_TRUNC | TRI_O_CLOEXEC,
-                 S_IRUSR | S_IWUSR | S_IRGRP);
+  int fd = TRI_TRACKED_CREATE_FILE(filename.c_str(),
+                                   O_WRONLY | O_CREAT | O_TRUNC | TRI_O_CLOEXEC,
+                                   S_IRUSR | S_IWUSR | S_IRGRP);
 
   if (fd == -1) {
     throwFileWriteError(fd, filename);
